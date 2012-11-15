@@ -1,4 +1,4 @@
-<?
+<?php
 class template {
 
 		protected $variables = array();
@@ -6,9 +6,6 @@ class template {
 		protected $_controller;
 		
 		protected $_action;
-		
-
-		
 		
 		function __construct($controller,$model,$action) {
 		
@@ -18,9 +15,9 @@ class template {
 			
 			if($this->_model == "index"){
 					
-			$this->_model = $this->_controller;
+				$this->_model = $this->_controller;
 						
-					}
+			}
 		
 			$this->_action = $action;
 		
@@ -40,53 +37,17 @@ class template {
 		 
 		
 		function render() {
-		 
+			
+			
 			extract($this->variables);
-		
-			if($_SERVER['REQUEST_METHOD'] == "POST"){
-				
-				echo 'Default Post Responce';
-				
-			}
-			else{
-				
-				if (file_exists(BASE_ROOT."/view/".$this->_controller."/header.php")) {
-					
-					require_once(BASE_ROOT."/view/".$this->_controller."/header.php");
-					
-					}
-				
-				else if(file_exists(BASE_ROOT."/view/default/header.php")){
-					
-					require_once(BASE_ROOT."/view/default/header.php");
-					
-					}
-																											
-			 if(file_exists(BASE_ROOT."/view/".$this->_controller."/view_".$this->_model.".php")){
-		
-						require_once(BASE_ROOT."/view/".$this->_controller."/view_".$this->_model.".php");
-				}
-					
-				else if(file_exists(BASE_ROOT."/view/error/view_error.php")){
-					
-					require_once(BASE_ROOT."/view/error/view_error.php");
-				}
-				
-				if (file_exists(BASE_ROOT."/view/".$this->_controller."/footer.php")) {
-					
-					require_once(BASE_ROOT."/view/".$this->_controller."/footer.php");
-					
-				}
-				
-				else if(file_exists(BASE_ROOT."/view/default/footer.php")){
-					
-					require_once(BASE_ROOT."/view/default/footer.php");
-					
-					}
-				
-			}
-		 
-	}
+			
+			get_header();
+			echo $content.'</br>';
+			include(BASE_ROOT.DS.'view'.DS.'home'.DS.'view_home.php');
+			var_dump($_SESSION);
+			get_footer();
+
+		}
 		
 		 
 		

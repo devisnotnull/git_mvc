@@ -15,13 +15,19 @@
 		public function __construct($controller,$model,$action)
 		{
 			
-			$this->_session = new session;
+			$this->_session = new session();
 			
 			$this->_controller = $controller;
 			
-			if(!$model){$this->_model = "index"; }
+			if(!$model) $this->_model = "index"; 
 			
 			else {$this->_model = $model; }
+			
+			$this->_model = new model(
+					$this->_session->ses_username,
+					$this->_session->ses_userlevel,
+					$this->_session->ses_id,
+					$this->_session->ses_ip);
 			
 			$this->_action = $action;
 			

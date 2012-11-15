@@ -5,9 +5,10 @@
 	
 		public function index()
 		{
-			header("HTTP/1.0 404 Not Found");
-			$this->set('title', 'ERROR 404 | Page Not Found !');
-			$this->set('body', 'ERROR 404 | Page Not Found !');
+			$this->set('page_type', 'static');
+		
+			$this->set('page_title', 'ERROR 404 | Page Not Found !');
+			$this->set('content', 'ERROR 404 | Page Not Found !');
 		}
 		
 	}

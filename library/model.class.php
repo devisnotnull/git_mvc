@@ -1,4 +1,4 @@
-<?
+<?php
 
 class model extends database {
 	
@@ -21,7 +21,7 @@ class model extends database {
 			
 			$this->_username = $ses_username;
 			
-			$this->_dbconnect = new database(DEFAULT_LOCALHOST,DB_GUEST_USERNAME,DB_GUEST_PASSWORD);
+			$this->_dbconnect = new database(DB_GUEST_USERNAME,DB_GUEST_PASSWORD);
 
 	}
 	

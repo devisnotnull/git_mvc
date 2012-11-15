@@ -1,18 +1,12 @@
 <?php
 
-	define("CRON_SERVERNAME","");
-	define("CRON_USERNAME","");
-	define("CRON_PASSWORD","");
-	define("CRON_DATABASE","");
-	
-	
 /*****************************
 	Definition Of Database Constants - Paramters required to connect to the database.
 *****************************/
 
-	define("DB_GUEST_USERNAME",""); 
+	define("DB_GUEST_USERNAME","albrownd_GuestP"); 
 	define("DB_GUEST_AUTH_LEVEL","3");
-	define("DB_GUEST_PASSWORD","");
+	define("DB_GUEST_PASSWORD","366362");
 	
 	define("DB_STANDARD_USERNAME","");
 	define("DB_STANDARD_AUTH_LEVEL","2");
@@ -22,9 +16,9 @@
 	define("DB_ADMIN_AUTH_LEVEL","1");
 	define("DB_ADMIN_PASSWORD","");	
 	
-	define("DEFAULT_DATABASE_NAME","");
+	define("DEFAULT_DATABASE_NAME","albrownd_personal_db");
 		
-	define("DEFAULT_LOCALHOST","");
+	define("DEFAULT_LOCALHOST","localhost");
 	define("DEFAULT_PDO_CONNECTION_STRING","");
 
 	
@@ -70,15 +64,21 @@
 	View Locations
 *****************************/
 
-	define("DEFAULT_IMG_SRC", "/public/img/");
+	$set_dev_defaults = array();
 	
-	define("DEFAULT_CSS_SRC", "/public/style/");
+	$hash_default = array(
+		"HASH_STRING_DEFAULT" => "5ZV2FSfGHfKFyj9TbY37Wx4r"
+	);
 	
-	define("DEFAULT_JS_SRC", "/public/js/");
-
-	define("HASH_STRING_DEFAULT","5ZV2FSfGHfKFyj9TbY37Wx4r")
+	$default_location_public = array(
+		'JS' => BASE_PATH.DS.'public'.DS.'js',
+		'CSS' => BASE_PATH.DS.'public'.DS.'css',
+		'IMG' => BASE_PATH.DS.'public'.DS.'img'
+	);
 	
-
-
-
+	$default_location_private = array(
+		'TEMPLATE' => BASE_ROOT.DS.'view'.DS.'default'.DS,
+		'MODULES' => BASE_ROOT.DS.'view'.DS.'modules'.DS
+	);
+	
 ?>
