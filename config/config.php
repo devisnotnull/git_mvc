@@ -4,22 +4,7 @@
 	Definition Of Database Constants - Paramters required to connect to the database.
 *****************************/
 
-	define("DB_GUEST_USERNAME","albrownd_GuestP"); 
-	define("DB_GUEST_AUTH_LEVEL","3");
-	define("DB_GUEST_PASSWORD","366362");
-	
-	define("DB_STANDARD_USERNAME","");
-	define("DB_STANDARD_AUTH_LEVEL","2");
-	define("DB_STANDARD_PASSWORD","");
-	
-	define("DB_ADMIN_USERNAME","");
-	define("DB_ADMIN_AUTH_LEVEL","1");
-	define("DB_ADMIN_PASSWORD","");	
-	
-	define("DEFAULT_DATABASE_NAME","albrownd_personal_db");
-		
-	define("DEFAULT_LOCALHOST","localhost");
-	define("DEFAULT_PDO_CONNECTION_STRING","");
+
 
 	
 /*****************************
@@ -64,7 +49,31 @@
 	View Locations
 *****************************/
 
-	$set_dev_defaults = array();
+	define("DB_GUEST_USERNAME","albrownd_GuestP");
+	define("DB_GUEST_AUTH_LEVEL","3");
+	define("DB_GUEST_PASSWORD","366362");
+	
+	define("DB_STANDARD_USERNAME","");
+	define("DB_STANDARD_AUTH_LEVEL","2");
+	define("DB_STANDARD_PASSWORD","");
+	
+	define("DB_ADMIN_USERNAME","");
+	define("DB_ADMIN_AUTH_LEVEL","1");
+	define("DB_ADMIN_PASSWORD","");
+	
+
+	$session_defaults = array(
+		'TOKENLENGTH' 	=>	'30'
+			);
+	
+ 	$set_dev_defaults = array();
+	
+	$database_default = array(
+		'DEFAULT_DB'	=>	'albrownd_personal_db', 
+		'DEFAULT_USERNAME'	=>	'albrownd_mvc',
+		'DEFAULT_PASSWORD'	=>	'366362',
+		'DEFAULT_SERVER'	=>	'localhost',
+	);
 	
 	$hash_default = array(
 		"HASH_STRING_DEFAULT" => "5ZV2FSfGHfKFyj9TbY37Wx4r"

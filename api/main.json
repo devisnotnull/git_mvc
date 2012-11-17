@@ -1,0 +1,6 @@
+<?php
+	
+$display = array('API Welcome Message' => 'ERROR NO API CONFIGURED');
+
+header('Content-Type: application/json');
+echo json_encode($display); ?>

@@ -9,61 +9,64 @@
 
 */
 
-class database{
+class database_instance{
 	
-	private $db_connection_var;
-	 
-	private $db_connection_host;
-	private $db_connection_username;
-	private $db_connection_password;
-	private $db_auth_level;
+	private static $db_instance;
 	
-	private $db_connection_database;
+	private static $pdo_instance;
 	
-	private $db_connection_timestamp_var; 
-	private $db_connection_error;
-	
-	
-		public  function __construct($db_username,$db_password){
-			
-			if($db_host == null){$this->db_connection_host = DEFAULT_LOCALHOST;}
-			
-			else {$this->db_connection_host = $db_host;}
-			
-			$this->db_connection_username = $db_username;
-			$this->db_connection_database = DB_NAME;
-			$this->db_connection_password = $db_password;
-			$this->db_connection_timestamp_var = date('Y-m-d H:i:s');
-			
-			$dbConnString = "mysql:host=" . DEFAULT_LOCALHOST . "; dbname=" . DEFAULT_DATABASE_NAME;
-			
-			try {
-				
-				$this->db_connection_var = new PDO($dbConnString, $db_username, $db_password);	
-				
-			}
-			 catch (PDOException $e) {
-				 
-				echo "There Was A Fatal Error Connecting To The Databasefg";
-				
-				echo $e->getMessage();
-				
-				die();
-				
-			}
+		private function __construct(){
 	
 		}
 		
-		public function generate_pro(){}
+		/*
+		 * 	@function 			__getInstance		Singleton Method Returns instance
+		* 	@description 		Implements Singelton Returns Instance Object
+		* 	@params 			None
+		* 	@return 			return Instance;
+		*/
+		public static function __getInstance(){
+			
+			if(!self::$db_instance) self::$db_instance = new database_instance;
+			return self::$db_instance;
+			
+		}
 		
-		public function get_pro(){}
+		/*
+		 * 	@function 			connect		 To Connect To A Database Object This Method Must Be Called,
+		 * 	@description 		An Array Should Be Passed To Overide Defaults 
+		 * 	@params 			function connect(array($Server_name, $Database_name, $Database_user, $Database_password))
+		 * 	@return 			return value True;
+		 */
 		
+		public static function connect($connection_options = null){
+			
+			global $database_default;
+			// Make Database Config Global Scope Options Avaliable.
+			
+			$dbConnString = "mysql:host=" . $database_default['DEFAULT_SERVER'] . 
+							"; dbname=" . $database_default['DEFAULT_DB'];
+			
+			try {
+				
+				self::$pdo_instance = new PDO($dbConnString, 
+												$database_default['DEFAULT_USERNAME'],
+												$database_default['DEFAULT_PASSWORD']);
+				
+				return self::$pdo_instance;
+				
+			} catch (PDOException $e) {
+				
+				echo $e;
+				return false;
+				
+			}
+		}
 
-
-		
+		private function __clone(){}
 		private function __destruct(){
 			
-			$this->db_connection_var = null;
+			self::$db_connection_var = null;
 			
 		}
 		

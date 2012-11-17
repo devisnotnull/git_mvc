@@ -12,57 +12,47 @@
 		protected 	$_template;
 		protected	$_write;
 		
-		public function __construct($controller,$model,$action)
-		{
+		public function __construct($controller,$model,$action){
 			
 			$this->_session = new session();
 			
 			$this->_controller = $controller;
 			
-			if(!$model) $this->_model = "index"; 
-			
-			else {$this->_model = $model; }
-			
-			$this->_model = new model(
-					$this->_session->ses_username,
-					$this->_session->ses_userlevel,
-					$this->_session->ses_id,
-					$this->_session->ses_ip);
-			
 			$this->_action = $action;
 			
-			$namefor = "model_".$this->_controller;	
+			$this->_template = new Template();
 			
-			$this->_template = new Template($this->_controller,$this->_model,$this->_action);
+		}
+		/*
+		 * 
+		 * @
+		 * 
+		 */
+		public function model_grab($model_name){
 			
+			$model_name = 'model_'.$model_name;
+			
+			if(file_exists(BASE_ROOT.DS.'model'.DS.$model_name.'.php')){
+				include_once(BASE_ROOT.DS.'model'.DS.$model_name.'.php');
+				$this->__set($model_name, new $model_name);
+			}
+			else{ 
+				echo "MODEL NOT FOUND";
 				
+			}
+			
 		}
 		
-		function auth_check(){ 
-		
-			if($this->_activemodel->write_granted()) { return true;}
-			
-			else {
-				
-				$this->_session->ses_logOut();
-				
-				header('Location: '.BASE_PATH.'/user');} 
-				
-		}
-		
-		function model_get($modelGrab){
-			
-			include(BASE_ROOT.'/model/'.$modelGrab);
-		
-		}
-		
-		function set($name,$value)
+		public function template_set($name,$value)
 		{
 			$this->_template->set($name,$value);
 		}
 		
+		public function __set($name,$var){
+			$this->$name = $var;
+		}
 		
-		
+
 		function __destruct(){
 			$this->_template->render();
 			exit();

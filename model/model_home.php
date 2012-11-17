@@ -1,6 +1,6 @@
 <?php
 	
-	class model_error extends model
+	class model_home extends model
 	{
 	
 		public function index(){

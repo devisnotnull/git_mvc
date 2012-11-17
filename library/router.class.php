@@ -77,6 +77,9 @@ class router{
 			if (file_exists(BASE_ROOT.DS."library".DS."database.class.php")){
 				require_once(BASE_ROOT.DS."library".DS."database.class.php");
 			}
+			if(file_exists(BASE_ROOT.DS."library".DS.'databaseinterface.class.php')){
+				require_once(BASE_ROOT.DS."library".DS.'databaseinterface.class.php');
+			}
 			if (file_exists(BASE_ROOT.DS."library".DS."model.class.php")){
 				require_once(BASE_ROOT.DS."library".DS."model.class.php");
 			}
@@ -95,8 +98,6 @@ class router{
 		if(!$this->controller){ $this->controller = "home"; }
 			
 			if(file_exists(BASE_ROOT.DS."controller".DS."controller_".$this->controller.".php")){
-				
-				if(file_exists(BASE_ROOT.DS."model".DS."model_".$this->controller.".php")){
 					
 					require_once(BASE_ROOT.DS."controller".DS."controller_".$this->controller.".php");
 					
@@ -113,8 +114,8 @@ class router{
 					else {
 						return true;}
 				}
-			}
-			else {return false;}
+			
+			
 		}
 		
 		public function load_controller_files(){
@@ -123,15 +124,14 @@ class router{
 				
 				require_once(BASE_ROOT.DS."controller".DS."controller_".$this->controller.".php");
 				
-				require_once(BASE_ROOT.DS."model".DS."model_".$this->controller.".php");
-				
 			}
 				
 			else if(file_exists(BASE_ROOT.DS."controller".DS."controller_error.php")){
+				echo "INTEGRITY BAD";
+				
 					if(file_exists(BASE_ROOT.DS."model".DS."model_error.php")){
 						$this->controller = "error";
 						require_once(BASE_ROOT.DS."controller".DS."controller_error.php");
-						require_once(BASE_ROOT.DS."model".DS."model_error.php");
 					}
 			}
 			else{

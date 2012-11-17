@@ -1,50 +1,38 @@
 <?php
 class session {
 	
-	protected $_sessionid;
-	protected $_sessionlevel;
-	protected $_sessionusername;
-	protected $_sessionremoteip;
+	global $session_defaults;
+	protected $_sessionid = null;
+	protected $_sessiontoken = null;
+	protected $_sessionlevel = null;
+	protected $_sessionusername = null;
+	protected $_sessionremoteip = null;
+	
+	protected $db_con = null;
 	
 	function __construct(){
 
 		session_start();
 		
 		$this->startSession();
-		
 		$this->_sessionid = session_id();
-		
 		$this->_sessionremoteip = $_SERVER['REMOTE_ADDR'];
+		
+		$this->con_db = database_instance::__getInstance();
+		$this->con_db = database_instance::connect();
 
 	}
 
 
-	function startSession(){
+	private function startSession(){
 
 		if(!isset($_SESSION['ses_username']) || !isset($_SESSION['ses_user_level'])){
 				
 				$this->_sessionusername = GUEST_LEVEL_STRING;
-				
 				$this->_sessionlevel = GUEST_LEVEL_STRING;
-				
 				$_SESSION['ses_username'] = GUEST_LEVEL_STRING;	
-				
 				$_SESSION['ses_user_level'] = GUEST_LEVEL_STRING;
 
-		}
-		else if($_SESSION['ses_username'] == GUEST_LEVEL_STRING || $_SESSION['ses_user_level'] == GUEST_LEVEL_STRING){
-
-				$this->_sessionusername = GUEST_LEVEL_STRING;
-				
-				$this->_sessionlevel = GUEST_LEVEL_STRING;
-		}
-		
-		else{
-				
-				$this->_sessionusername = $_SESSION['ses_username'];
-				
-				$this->_sessionlevel = $_SESSION['ses_user_level'];
-				
 		}
 	
 	}
@@ -60,7 +48,7 @@ class session {
 	
 	***********************/
 	
-	function ses_login($username,$ip,$level){
+	public function ses_login($username,$ip,$level){
 		
 				foreach ($_SESSION as $var => $val) {
 					
@@ -114,13 +102,24 @@ class session {
 					return false;
 					
 			}
-			
-
 	
 	}
 	
-	function integrity_check($username,$sessionid,$userip,$lastdate){
+	
+	function integrity_check(){
 		
+		 $this->_sessionid = null;
+		 $this->_sessiontoken = null;
+		 $this->_sessionlevel = null;
+		 $this->_sessionusername = null;
+		 $this->_sessionremoteip = null;
+	
+	}
+	
+	private function regen_token(){
+		
+		global $session_defaults;
+		substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $session_defaults['TOKENLENGTH']);
 		
 	}
 	
